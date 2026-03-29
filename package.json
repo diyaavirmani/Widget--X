@@ -1,0 +1,52 @@
+{
+  "name": "widget-x",
+  "version": "1.0.0",
+  "description": "Premium X (Twitter) desktop widget for Windows, macOS & Linux",
+  "main": "./out/main/index.js",
+  "author": "Widget X",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "lint": "eslint . --ext .ts,.tsx",
+    "package": "electron-vite build && electron-builder --config electron-builder.yml",
+    "package:win": "electron-vite build && electron-builder --win --config electron-builder.yml",
+    "package:mac": "electron-vite build && electron-builder --mac --config electron-builder.yml",
+    "package:linux": "electron-vite build && electron-builder --linux --config electron-builder.yml"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.0",
+    "twitter-api-v2": "^1.17.2",
+    "zustand": "^5.0.3",
+    "date-fns": "^4.1.0",
+    "nanoid": "^5.0.9",
+    "framer-motion": "^11.18.0"
+  },
+  "devDependencies": {
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@electron-toolkit/utils": "^3.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^3.0.0",
+    "lucide-react": "^0.468.0",
+    "postcss": "^8.4.49",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  }
+}
