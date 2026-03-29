@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --x-bg: #ffffff;
+  --x-bg-secondary: #f7f9f9;
+  --x-bg-hover: #f7f9f9;
+  --x-bg-overlay: rgba(255, 255, 255, 0.85);
+  --x-text: #0f1419;
+  --x-text-secondary: #536471;
+  --x-accent: #1d9bf0;
+  --x-accent-hover: #1a8cd8;
+  --x-border: #eff3f4;
+  --x-danger: #f4212e;
+  --x-success: #00ba7c;
+  --x-repost: #00ba7c;
+  --x-like: #f91880;
+  --x-reply: #536471;
+}
+
+.dark {
+  --x-bg: #000000;
+  --x-bg-secondary: #16181c;
+  --x-bg-hover: #1d1f23;
+  --x-bg-overlay: rgba(0, 0, 0, 0.85);
+  --x-text: #e7e9ea;
+  --x-text-secondary: #71767b;
+  --x-accent: #1d9bf0;
+  --x-accent-hover: #1a8cd8;
+  --x-border: #2f3336;
+  --x-danger: #f4212e;
+  --x-success: #00ba7c;
+  --x-repost: #00ba7c;
+  --x-like: #f91880;
+  --x-reply: #71767b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar - X style */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--x-text-secondary);
+  border-radius: 4px;
+  opacity: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--x-accent);
+}
+
+/* Drag region for frameless window */
+.drag-region {
+  -webkit-app-region: drag;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Glassmorphic widget background */
+.widget-glass {
+  background: var(--x-bg-overlay);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--x-border);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.dark .widget-glass {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* X-style button */
+.x-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+.x-button-primary {
+  background: var(--x-accent);
+  color: #ffffff;
+}
+.x-button-primary:hover {
+  background: var(--x-accent-hover);
+}
+.x-button-outline {
+  background: transparent;
+  color: var(--x-text);
+  border: 1px solid var(--x-border);
+}
+.x-button-outline:hover {
+  background: var(--x-bg-hover);
+}
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--x-bg-secondary) 25%,
+    var(--x-bg-hover) 50%,
+    var(--x-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Engagement number formatting */
+.engagement-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--x-text-secondary);
+}
+
+/* Widget-level transitions */
+.widget-content-enter {
+  animation: x-fade-in 0.2s ease-out;
+}
