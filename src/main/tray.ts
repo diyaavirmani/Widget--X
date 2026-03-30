@@ -7,7 +7,7 @@ let tray: Tray | null = null
 export function setupTray(windowManager: WindowManager): void {
   // Use a simple 16x16 tray icon
   const iconPath = join(__dirname, '../../resources/tray-icon.png')
-  let icon: nativeImage
+  let icon
   try {
     icon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
   } catch {
@@ -46,7 +46,7 @@ export function setupTray(windowManager: WindowManager): void {
       label: '⚙️ Settings',
       click: () => {
         // Open settings in a new widget-style window
-        windowManager.createWidget({ type: 'timeline', width: 480, height: 600 })
+        windowManager.createWidget({ type: 'settings' as any, width: 480, height: 600 })
       }
     },
     { type: 'separator' },
