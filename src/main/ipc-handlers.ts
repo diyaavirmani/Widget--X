@@ -1,6 +1,7 @@
 import { ipcMain, BrowserWindow, shell, nativeTheme } from 'electron'
 import { IPC_CHANNELS } from '../shared/ipc-channels'
 import { initStore } from './store'
+import { login, logout } from './auth'
 
 export function setupIpcHandlers(): void {
   const store = initStore()
@@ -48,6 +49,15 @@ export function setupIpcHandlers(): void {
   ipcMain.handle(IPC_CHANNELS.SETTINGS_SET, (_event, key: string, value: unknown) => {
     store.set(`settings.${key}`, value)
     return store.get('settings')
+  })
+
+  // Auth flow
+  ipcMain.handle(IPC_CHANNELS.AUTH_LOGIN, async (event) => {
+    return await login(event.sender)
+  })
+
+  ipcMain.handle(IPC_CHANNELS.AUTH_LOGOUT, () => {
+    logout()
   })
 
   // Auth token

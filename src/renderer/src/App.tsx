@@ -7,12 +7,13 @@ import { NotificationsWidget } from './components/widgets/NotificationsWidget'
 import { ComposeWidget } from './components/widgets/ComposeWidget'
 import { TrendingWidget } from './components/widgets/TrendingWidget'
 import { SettingsPanel } from './components/settings/SettingsPanel'
+import { LoginScreen } from './components/auth/LoginScreen'
 import { useAutoRefresh } from './hooks/useAutoRefresh'
 import { useCycling } from './hooks/useCycling'
 
 export default function App() {
   const [size, setSize] = useState<WidgetSize>('4x4')
-  const { theme, setResolvedTheme, activeType, setActiveType } = useWidgetStore()
+  const { theme, setResolvedTheme, activeType, setActiveType, isAuthenticated, setIsAuthenticated } = useWidgetStore()
 
   // Initialize background hooks
   useAutoRefresh()
@@ -41,9 +42,17 @@ export default function App() {
     }
 
     window.widgetAPI.getTheme().then(applyTheme)
-    const cleanup = window.widgetAPI.onThemeChanged(applyTheme)
-    return cleanup
-  }, [theme, setActiveType, setResolvedTheme])
+    const cleanupTheme = window.widgetAPI.onThemeChanged(applyTheme)
+    
+    // Auth logic
+    window.widgetAPI.getAuthStatus().then((status: { authenticated: boolean }) => setIsAuthenticated(status.authenticated))
+    const cleanupAuth = window.widgetAPI.onAuthSuccess(() => setIsAuthenticated(true))
+
+    return () => {
+      cleanupTheme()
+      cleanupAuth()
+    }
+  }, [theme, setActiveType, setResolvedTheme, setIsAuthenticated])
 
   // Responsive size listener
   useEffect(() => {
@@ -63,6 +72,14 @@ export default function App() {
     handleResize()
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  if (!isAuthenticated) {
+    return (
+      <WidgetShell size={size}>
+        <LoginScreen />
+      </WidgetShell>
+    )
+  }
 
   return (
     <WidgetShell size={size}>

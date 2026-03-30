@@ -27,8 +27,15 @@ const api = {
     ipcRenderer.invoke(IPC_CHANNELS.SETTINGS_SET, key, value),
 
   // Auth
+  login: () => ipcRenderer.invoke(IPC_CHANNELS.AUTH_LOGIN),
+  logout: () => ipcRenderer.invoke(IPC_CHANNELS.AUTH_LOGOUT),
   getAuthToken: () => ipcRenderer.invoke(IPC_CHANNELS.AUTH_GET_TOKEN),
-  getAuthStatus: () => ipcRenderer.invoke(IPC_CHANNELS.AUTH_GET_STATUS)
+  getAuthStatus: () => ipcRenderer.invoke(IPC_CHANNELS.AUTH_GET_STATUS),
+  onAuthSuccess: (callback: () => void) => {
+    const handler = () => callback()
+    ipcRenderer.on('auth-success', handler)
+    return () => ipcRenderer.removeListener('auth-success', handler)
+  }
 }
 
 contextBridge.exposeInMainWorld('widgetAPI', api)

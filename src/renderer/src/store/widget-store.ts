@@ -1,4 +1,4 @@
-﻿import { create } from 'zustand'
+import { create } from 'zustand'
 import type { WidgetType, ThemeMode, Post, Notification, TrendingTopic } from '../types/widget'
 import { MOCK_POSTS, MOCK_NOTIFICATIONS, MOCK_TRENDING } from '../lib/mock-data'
 
@@ -24,6 +24,9 @@ interface WidgetStore {
   setIsLoading: (loading: boolean) => void
   isRefreshing: boolean
   setIsRefreshing: (refreshing: boolean) => void
+
+  isAuthenticated: boolean
+  setIsAuthenticated: (auth: boolean) => void
 
   refreshInterval: number
   cyclingEnabled: boolean
@@ -55,6 +58,9 @@ export const useWidgetStore = create<WidgetStore>((set) => ({
   setIsLoading: (isLoading) => set({ isLoading }),
   isRefreshing: false,
   setIsRefreshing: (isRefreshing) => set({ isRefreshing }),
+
+  isAuthenticated: false,
+  setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
 
   refreshInterval: 90,
   cyclingEnabled: false,
