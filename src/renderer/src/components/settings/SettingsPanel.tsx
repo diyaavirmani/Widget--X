@@ -3,7 +3,7 @@ import { useWidgetStore } from '../../store/widget-store'
 import { Monitor, Moon, Sun, Clock, Repeat, Smartphone, ShieldCheck, X } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
-export function SettingsPanel(): JSX.Element {
+export function SettingsPanel() {
   const { theme, setTheme, refreshInterval, setRefreshInterval, cyclingEnabled, setCyclingEnabled, cyclingInterval, setCyclingInterval } = useWidgetStore()
 
   const handleClose = () => {

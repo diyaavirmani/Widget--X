@@ -9,7 +9,7 @@ interface NotificationsWidgetProps {
   size: WidgetSize
 }
 
-export function NotificationsWidget({ size }: NotificationsWidgetProps): JSX.Element {
+export function NotificationsWidget({ size }: NotificationsWidgetProps) {
   const { notifications } = useWidgetStore()
   
   // Decide how many to show

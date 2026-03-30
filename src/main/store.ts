@@ -1,8 +1,8 @@
 import Store from 'electron-store'
 
-let store: Store | null = null
+let store: any = null
 
-export function initStore(): Store {
+export function initStore(): Store<any> {
   if (!store) {
     store = new Store({
       name: 'widget-x-config',

@@ -8,7 +8,7 @@ interface WidgetShellProps {
   children: React.ReactNode
 }
 
-export function WidgetShell({ size, children }: WidgetShellProps): JSX.Element {
+export function WidgetShell({ size, children }: WidgetShellProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   const handleClose = () => {

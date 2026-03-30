@@ -7,7 +7,7 @@ interface ComposeWidgetProps {
   size: WidgetSize
 }
 
-export function ComposeWidget({ size }: ComposeWidgetProps): JSX.Element {
+export function ComposeWidget({ size }: ComposeWidgetProps) {
   const [text, setText] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const maxLength = 280

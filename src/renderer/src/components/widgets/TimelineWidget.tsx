@@ -9,7 +9,7 @@ interface TimelineWidgetProps {
   size: WidgetSize
 }
 
-export function TimelineWidget({ size }: TimelineWidgetProps): JSX.Element {
+export function TimelineWidget({ size }: TimelineWidgetProps) {
   const { posts } = useWidgetStore()
   
   // Decide how many posts to show based on size

@@ -9,7 +9,7 @@ interface TrendingWidgetProps {
   size: WidgetSize
 }
 
-export function TrendingWidget({ size }: TrendingWidgetProps): JSX.Element {
+export function TrendingWidget({ size }: TrendingWidgetProps) {
   const { trending } = useWidgetStore()
   
   const displayTrends = useMemo(() => {
