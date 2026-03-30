@@ -37,7 +37,7 @@ export interface TrendingTopic {
   url: string
 }
 
-export type WidgetType = 'timeline' | 'notifications' | 'compose' | 'trending'
+export type WidgetType = 'timeline' | 'notifications' | 'compose' | 'trending' | 'settings'
 export type WidgetSize = '1x1' | '2x1' | '2x2' | '4x1' | '4x2' | '4x4'
 export type ThemeMode = 'light' | 'dark' | 'system'
 

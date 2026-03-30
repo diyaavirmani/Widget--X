@@ -3,13 +3,20 @@ import { useWidgetStore } from './store/widget-store'
 import type { WidgetType, WidgetSize } from './types/widget'
 import { WidgetShell } from './components/widgets/WidgetShell'
 import { TimelineWidget } from './components/widgets/TimelineWidget'
-// import { NotificationsWidget } from './components/widgets/NotificationsWidget'
-// import { ComposeWidget } from './components/widgets/ComposeWidget'
-// import { TrendingWidget } from './components/widgets/TrendingWidget'
+import { NotificationsWidget } from './components/widgets/NotificationsWidget'
+import { ComposeWidget } from './components/widgets/ComposeWidget'
+import { TrendingWidget } from './components/widgets/TrendingWidget'
+import { SettingsPanel } from './components/settings/SettingsPanel'
+import { useAutoRefresh } from './hooks/useAutoRefresh'
+import { useCycling } from './hooks/useCycling'
 
-export default function App(): JSX.Element {
+export default function App() {
   const [size, setSize] = useState<WidgetSize>('4x4')
   const { theme, setResolvedTheme, activeType, setActiveType } = useWidgetStore()
+
+  // Initialize background hooks
+  useAutoRefresh()
+  useCycling()
 
   useEffect(() => {
     // Determine widget type and configuration from URL query params
@@ -60,9 +67,10 @@ export default function App(): JSX.Element {
   return (
     <WidgetShell size={size}>
       {activeType === 'timeline' && <TimelineWidget size={size} />}
-      {/* {activeType === 'notifications' && <NotificationsWidget size={size} />} */}
-      {/* {activeType === 'compose' && <ComposeWidget size={size} />} */}
-      {/* {activeType === 'trending' && <TrendingWidget size={size} />} */}
+      {activeType === 'notifications' && <NotificationsWidget size={size} />}
+      {activeType === 'compose' && <ComposeWidget size={size} />}
+      {activeType === 'trending' && <TrendingWidget size={size} />}
+      {activeType === 'settings' && <SettingsPanel />}
     </WidgetShell>
   )
 }
