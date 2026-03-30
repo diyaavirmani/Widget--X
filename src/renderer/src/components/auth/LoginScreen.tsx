@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { useWidgetStore } from '../../store/widget-store'
+
 export function LoginScreen() {
+  const { setIsAuthenticated } = useWidgetStore()
+
   const handleLogin = () => {
     // Start the auth flow via Main process
     window.widgetAPI.login()
@@ -24,6 +28,13 @@ export function LoginScreen() {
         className="bg-x-text text-x-bg font-bold text-lg px-8 py-3 rounded-full hover:opacity-90 transition w-full max-w-[280px]"
       >
         Sign in with X
+      </button>
+
+      <button
+        onClick={() => setIsAuthenticated(true)}
+        className="mt-4 border border-x-border text-x-text font-bold text-sm px-8 py-2 rounded-full hover:bg-x-border transition w-full max-w-[280px]"
+      >
+        Skip Login (Dev Mode)
       </button>
 
       <div className="mt-8 text-xs text-x-text-secondary text-center">
