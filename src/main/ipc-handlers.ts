@@ -2,6 +2,7 @@ import { ipcMain, BrowserWindow, shell, nativeTheme } from 'electron'
 import { IPC_CHANNELS } from '../shared/ipc-channels'
 import { initStore } from './store'
 import { login, logout } from './auth'
+import { fetchTimeline } from './api'
 
 export function setupIpcHandlers(): void {
   const store = initStore()
@@ -68,5 +69,10 @@ export function setupIpcHandlers(): void {
   ipcMain.handle(IPC_CHANNELS.AUTH_GET_STATUS, () => {
     const token = store.get('auth.accessToken')
     return { authenticated: !!token }
+  })
+
+  // Twitter API Data Fetchers
+  ipcMain.handle(IPC_CHANNELS.API_GET_TIMELINE, async () => {
+    return await fetchTimeline()
   })
 }

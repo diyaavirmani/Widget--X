@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import type { WidgetSize } from '../../types/widget'
 import { useWidgetStore } from '../../store/widget-store'
 import { MOCK_POSTS } from '../../lib/mock-data'
@@ -11,6 +11,7 @@ interface TimelineWidgetProps {
 
 export function TimelineWidget({ size }: TimelineWidgetProps) {
   const { posts } = useWidgetStore()
+  const [activeTab, setActiveTab] = useState<'forYou' | 'following'>('forYou')
   
   // Decide how many posts to show based on size
   const displayPosts = useMemo(() => {
@@ -42,15 +43,30 @@ export function TimelineWidget({ size }: TimelineWidgetProps) {
     <div className="flex flex-col h-full w-full">
       {/* Header Tabs */}
       {size !== '2x1' && size !== '4x1' && (
-        <div className="flex border-b border-x-border w-full no-drag relative z-20 shrink-0">
-          <button className="flex-1 font-bold text-x-sm py-3 text-x-text hover:bg-x-bg-hover transition">
+        <div className="flex border-b border-x-border w-full no-drag relative z-20 shrink-0 bg-x-bg/80 backdrop-blur-md">
+          <button 
+            className={cn(
+               "flex-1 font-bold text-x-sm py-3 hover:bg-x-bg-hover transition",
+               activeTab === 'forYou' ? "text-x-text" : "text-x-text-secondary"
+            )}
+            onClick={() => setActiveTab('forYou')}
+          >
             <span className="relative">
               For you
-              <div className="absolute -bottom-[13px] left-0 w-full h-[4px] bg-x-accent rounded-full"></div>
+              {activeTab === 'forYou' && <div className="absolute -bottom-[13px] left-0 w-full h-[4px] bg-x-accent rounded-full"></div>}
             </span>
           </button>
-          <button className="flex-1 font-medium text-x-text-secondary text-x-sm py-3 hover:bg-x-bg-hover transition">
-            Following
+          <button 
+            className={cn(
+              "flex-1 font-bold text-x-sm py-3 hover:bg-x-bg-hover transition",
+              activeTab === 'following' ? "text-x-text" : "text-x-text-secondary"
+            )}
+            onClick={() => setActiveTab('following')}
+          >
+            <span className="relative">
+              Following
+              {activeTab === 'following' && <div className="absolute -bottom-[13px] left-0 w-full h-[4px] bg-x-accent rounded-full"></div>}
+            </span>
           </button>
         </div>
       )}

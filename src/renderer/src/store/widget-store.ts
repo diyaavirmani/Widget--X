@@ -62,9 +62,10 @@ export const useWidgetStore = create<WidgetStore>((set) => ({
   isAuthenticated: false,
   setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
 
-  refreshInterval: 90,
-  cyclingEnabled: false,
-  cyclingInterval: 180,
+  // AUTO-CYCLING IS ON BY DEFAULT — rotates every 30 seconds
+  refreshInterval: 60,
+  cyclingEnabled: true,
+  cyclingInterval: 30,
   setRefreshInterval: (refreshInterval) => set({ refreshInterval }),
   setCyclingEnabled: (cyclingEnabled) => set({ cyclingEnabled }),
   setCyclingInterval: (cyclingInterval) => set({ cyclingInterval })

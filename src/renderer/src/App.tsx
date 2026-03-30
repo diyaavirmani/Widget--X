@@ -81,13 +81,45 @@ export default function App() {
     )
   }
 
+  // Navigation bar at the bottom for switching widgets manually
+  const navItems: { type: WidgetType; label: string }[] = [
+    { type: 'timeline', label: '🏠' },
+    { type: 'notifications', label: '🔔' },
+    { type: 'trending', label: '🔍' },
+    { type: 'compose', label: '✍️' },
+  ]
+
   return (
     <WidgetShell size={size}>
-      {activeType === 'timeline' && <TimelineWidget size={size} />}
-      {activeType === 'notifications' && <NotificationsWidget size={size} />}
-      {activeType === 'compose' && <ComposeWidget size={size} />}
-      {activeType === 'trending' && <TrendingWidget size={size} />}
-      {activeType === 'settings' && <SettingsPanel />}
+      <div className="flex flex-col h-full w-full">
+        {/* Active Widget Content */}
+        <div className="flex-1 overflow-hidden">
+          {activeType === 'timeline' && <TimelineWidget size={size} />}
+          {activeType === 'notifications' && <NotificationsWidget size={size} />}
+          {activeType === 'compose' && <ComposeWidget size={size} />}
+          {activeType === 'trending' && <TrendingWidget size={size} />}
+          {activeType === 'settings' && <SettingsPanel />}
+        </div>
+
+        {/* Bottom Navigation Bar — clickable tabs to switch between widgets */}
+        {size !== '1x1' && size !== '2x1' && size !== '4x1' && activeType !== 'settings' && (
+          <div className="flex items-center justify-around border-t border-x-border bg-x-bg/60 backdrop-blur-lg py-1.5 shrink-0">
+            {navItems.map(item => (
+              <button
+                key={item.type}
+                onClick={() => setActiveType(item.type)}
+                className={`flex-1 text-center py-1.5 text-lg transition-all rounded-lg mx-0.5 cursor-pointer
+                  ${activeType === item.type 
+                    ? 'bg-x-accent/15 scale-110' 
+                    : 'hover:bg-x-bg-hover opacity-60 hover:opacity-100'
+                  }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </WidgetShell>
   )
 }

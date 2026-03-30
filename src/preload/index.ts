@@ -35,7 +35,10 @@ const api = {
     const handler = () => callback()
     ipcRenderer.on('auth-success', handler)
     return () => ipcRenderer.removeListener('auth-success', handler)
-  }
+  },
+
+  // API Data
+  getTimeline: () => ipcRenderer.invoke(IPC_CHANNELS.API_GET_TIMELINE)
 }
 
 contextBridge.exposeInMainWorld('widgetAPI', api)

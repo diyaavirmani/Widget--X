@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useWidgetStore } from '../../store/widget-store'
-import { Monitor, Moon, Sun, Clock, Repeat, Smartphone, ShieldCheck, X } from 'lucide-react'
+import { Monitor, Moon, Sun, Clock, Repeat, Smartphone, ShieldCheck, ArrowLeft } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
 export function SettingsPanel() {
-  const { theme, setTheme, refreshInterval, setRefreshInterval, cyclingEnabled, setCyclingEnabled, cyclingInterval, setCyclingInterval } = useWidgetStore()
+  const { theme, setTheme, refreshInterval, setRefreshInterval, cyclingEnabled, setCyclingEnabled, cyclingInterval, setCyclingInterval, setActiveType } = useWidgetStore()
 
-  const handleClose = () => {
-    window.widgetAPI.close()
+  const handleBack = () => {
+    setActiveType('timeline')
   }
 
   return (
     <div className="flex flex-col h-full w-full bg-x-bg text-x-text overflow-y-auto no-drag">
       <div className="flex justify-between items-center p-4 border-b border-x-border sticky top-0 bg-x-bg z-10">
-        <h2 className="text-xl font-bold">Settings</h2>
-        <button 
-          onClick={handleClose}
-          className="p-2 rounded-full hover:bg-x-bg-hover transition"
-        >
-          <X size={20} className="text-x-text" />
-        </button>
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={handleBack}
+            className="p-2 rounded-full hover:bg-x-bg-hover transition cursor-pointer"
+          >
+            <ArrowLeft size={20} className="text-x-text" />
+          </button>
+          <h2 className="text-xl font-bold">Settings</h2>
+        </div>
       </div>
 
       <div className="p-4 space-y-8">
@@ -116,6 +118,8 @@ export function SettingsPanel() {
                   value={cyclingInterval}
                   onChange={(e) => setCyclingInterval(Number(e.target.value))}
                 >
+                  <option value={15}>15 seconds</option>
+                  <option value={30}>30 seconds</option>
                   <option value={60}>1 minute</option>
                   <option value={120}>2 minutes</option>
                   <option value={180}>3 minutes</option>
