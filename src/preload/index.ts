@@ -9,6 +9,8 @@ const api = {
   toggleAlwaysOnTop: () => ipcRenderer.send(IPC_CHANNELS.WINDOW_TOGGLE_ALWAYS_ON_TOP),
   setClickThrough: (ignore: boolean) =>
     ipcRenderer.send(IPC_CHANNELS.WINDOW_SET_CLICK_THROUGH, ignore),
+  moveWindow: (dx: number, dy: number) => ipcRenderer.send('window:move-delta', dx, dy),
+  resizeWindow: (dx: number, dy: number) => ipcRenderer.send('window:resize-delta', dx, dy),
 
   // External links
   openExternal: (url: string) => ipcRenderer.send(IPC_CHANNELS.OPEN_EXTERNAL, url),

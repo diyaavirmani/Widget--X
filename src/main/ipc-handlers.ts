@@ -32,6 +32,26 @@ export function setupIpcHandlers(): void {
     }
   })
 
+  // Move window by delta (for manual drag on frameless transparent windows)
+  ipcMain.on('window:move-delta', (event, dx: number, dy: number) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) {
+      const [x, y] = win.getPosition()
+      win.setPosition(x + dx, y + dy)
+    }
+  })
+
+  // Resize window by delta (for manual resize on frameless transparent windows)
+  ipcMain.on('window:resize-delta', (event, dx: number, dy: number) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) {
+      const [w, h] = win.getSize()
+      const newW = Math.max(140, Math.min(800, w + dx))
+      const newH = Math.max(140, Math.min(800, h + dy))
+      win.setSize(newW, newH)
+    }
+  })
+
   // Open external links
   ipcMain.on(IPC_CHANNELS.OPEN_EXTERNAL, (_event, url: string) => {
     shell.openExternal(url)
